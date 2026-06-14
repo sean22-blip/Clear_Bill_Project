@@ -62,7 +62,7 @@ function LoginPage() {
                             />
                         </div>
                         <div className='flex flex-col'>
-                            <h2 className='text-[14px]'>PASSWORD</h2>
+                            <h2 className='text-[14px] '>PASSWORD</h2>
                             <input
                                 type="password"
                                 value={password}
@@ -71,12 +71,11 @@ function LoginPage() {
                                 placeholder="Enter your password"
                             />
                         </div>
-                        <button onClick={handleLogin} className='text-[#00668A] font-semibold text-[20px] bg-[#40C2FD] rounded-lg h-[50px]'>Sign In</button>
+                        <button onClick={handleLogin} className='hover:bg-[#0C92C1] cursor-pointer text-[#00668A] font-semibold text-[20px] bg-[#40C2FD] rounded-lg h-[50px]'>Sign In</button>
                     </div>
-                    <div>
-                        <hr />
-                    </div>
+                    
                 </div>
+                
             </div>
         </>
     );
