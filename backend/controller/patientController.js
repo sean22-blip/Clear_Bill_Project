@@ -1,0 +1,43 @@
+const { Patient, User, Bill } = require("../models");
+
+exports.getDashboard = async (req, res) => {
+    try {
+
+        const patient = await Patient.findByPk(req.params.id, {
+            include: [User]
+        });
+
+        const totalBills = await Bill.count({
+            where: {
+                patient_id: req.params.id
+            }
+        });
+
+        const paidBills = await Bill.count({
+            where: {
+                patient_id: req.params.id,
+                status: "Paid"
+            }
+        });
+
+        const unpaidBills = await Bill.count({
+            where: {
+                patient_id: req.params.id,
+                status: "Unpaid"
+            }
+        });
+
+        res.json({
+            patient_id: patient.patient_id,
+            name: patient.User.name,
+            gender: patient.gender,
+            address: patient.address,
+            totalBills,
+            paidBills,
+            unpaidBills
+        });
+
+    } catch (error) {
+        res.status(500).json(error);
+    }
+};

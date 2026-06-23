@@ -12,7 +12,9 @@ function Header() {
                     <h1 className='font-bold text-[#00668A]'>ClearBill Care</h1>
                 </div>
                 <img src={noti} alt="" />
+                
             </div>
+            <div className='border-t border-gray-200'></div>
         </>
     )
 }

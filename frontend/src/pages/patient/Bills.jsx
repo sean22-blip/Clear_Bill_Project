@@ -1,4 +1,11 @@
 function Bills() {
-    return <div>Bills</div>;
+    return(
+        <>
+        <div>
+            <h1 className="">Patient Bills Details</h1>
+        </div>
+        </>
+    )
+    
 }
 export default Bills;
