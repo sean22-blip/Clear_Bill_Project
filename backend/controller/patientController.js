@@ -3,7 +3,10 @@ const { Patient, User, Bill } = require("../models");
 exports.getDashboard = async (req, res) => {
     try {
 
-        const patient = await Patient.findByPk(req.params.id, {
+        const patient = await Patient.findOne({
+            where: {
+                user_id: req.params.id
+            },
             include: [User]
         });
 

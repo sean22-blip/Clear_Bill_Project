@@ -80,7 +80,7 @@ console.log("Status:", response.status);
                     </div>
 
                 </div>
-                <div className='text-center bottom-0 lelf-0 mt-24'>
+                <div className='text-center bottom-0 lelf-0 mt-10'>
                     <p className='text-[#76777D] text-[16px]'>© 2026 ClearBill Care. All healthcare financial data is
                         processed securely.</p>
                 </div>
