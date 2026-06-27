@@ -20,7 +20,7 @@ function Dashboard() {
             <div className=" flex flex-col justify-center items-center">
                 <div className="justify-center items-center w-[95%]  border-1 border-gray-300 rounded-lg px-6 mt-6">
                     <div className=" flex flex-row justify-around   ">
-                        <div>
+                        <div>what
                             <div>
                                 <h1 className="font-bold text-[20px]">Hello, {patient?.name}</h1>
                             </div>
