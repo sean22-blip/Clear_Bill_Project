@@ -8,7 +8,8 @@ const patientRoutes = require("./routes/patientRoutes");
 const billRoutes = require("./routes/billRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
-
+const receptionistRoutes = require("./routes/receptionistRoutes")
+const cashierRoutes = require("./routes/cashierRoutes")
 const app = express();
 
 app.use(cors());
@@ -19,6 +20,8 @@ app.use("/api/patient", patientRoutes);
 app.use("/api/bills", billRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/payments", paymentRoutes);
+app.use("/api/receptionist", receptionistRoutes);
+app.use("/api/cashiers", cashierRoutes);
 sequelize.authenticate()
 .then(() => {
     console.log("Database Connected");
