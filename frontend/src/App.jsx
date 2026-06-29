@@ -8,6 +8,10 @@ import Profile from './pages/patient/Profile.jsx'
 import BillDetail from './pages/patient/BillDetail.jsx';
 import RegisterPatient from './pages/receptionist/registerPatient.jsx';
 import ReceptionistDashboard from './pages/receptionist/receptionistDashboard.jsx';
+import CashierDashboard from './pages/cashier/cashierDashboard.jsx';
+import CreateBill from './pages/cashier/createBill.jsx';
+import DoctorDashboard from './pages/doctor/doctorDashboard.jsx';
+import InputService from './pages/doctor/generateService.jsx';
 import './App.css'
 import './index.css'
 
@@ -32,6 +36,19 @@ function App() {
         <Route element={<RootLayout />}>
           <Route path='/receptionist/dashboard' element={<ReceptionistDashboard />}></Route>
           <Route path='/receptionist/dashboard/:id/create' element={<RegisterPatient />}></Route>
+        </Route>
+
+         {/* cashier route*/}
+        <Route element={<RootLayout />}>
+          <Route path='/cashier/dashboard' element={<CashierDashboard />}></Route>
+          <Route path='/cashier/dashboard/:id/createBill' element={<CreateBill/>}></Route>
+        </Route>
+
+         {/*Doctor route*/}
+        <Route element={<RootLayout 
+        />}>
+          <Route path='/doctor/dashboard' element={<DoctorDashboard />}></Route>
+          <Route path='/doctor/dashboard/:id/inputService' element={<InputService/>}></Route>
         </Route>
 
       </Routes>

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import ReceptionistDashboard from "./receptionistDashboard";
+import { Navigate } from "react-router-dom";
 function RegisterPatient() {
 
   const [name, setFullName] = useState("")
@@ -10,7 +11,7 @@ function RegisterPatient() {
   const [gender, setGender] = useState("")
   const [address, setAddress] = useState("")
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [dashboard, setShowDashboard] = useState(false);
 
@@ -18,16 +19,16 @@ function RegisterPatient() {
   useEffect(() => {
     console.log("user id is :", user.id);
     if (!user.id) {
-      navigate("/login");
+      Navigate("/login");
       return;
     }
-    setLoading(true);
     fetch(`http://localhost:5000/api/receptionist/${user.id}`)
       .then((res) => {
         return res.json()
       }
       )
       .then((data) => {
+        console.log(data)
         setLoading(false);
       }).catch((error) => {
         console.log(error)
@@ -39,7 +40,7 @@ function RegisterPatient() {
 
   async function handleCreatePatient() {
     try {
-      const newPatient = await fetch(`http://localhost:5000/api/receptionist/${user.id}/create`,
+      const newPatient = await fetch(`http://localhost:5000/api/receptionist/${user.id}`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -47,9 +48,16 @@ function RegisterPatient() {
         }
       )
       const data = await newPatient.json()
-      console.log("Status:", response.status);
+
+      if (!newPatient.ok) {
+        setError(data.error);
+        window.alert("Already exisiting patient!")
+        return;
+      }
+      setShowDashboard(true);
+
+      console.log("Status:", newPatient.status);
       console.log("Response:", data);
-      // console.log(data)
       console.log("Submitting:", { user_id: user.id, gender, address, name, email, password });
 
     } catch (error) {
@@ -58,14 +66,16 @@ function RegisterPatient() {
       setError(error.message);
     }
   }
-
-
-
   if (loading) {
     return <h1>Loading ...</h1>
   }
   if (error) {
-    return <h1>Error: {error}</h1>
+    return <h1 className=" items-center m-[20%]">
+      <p className="">Error: {error}</p>
+      <div className="text-center border border-gray-700 rounded-md text-white bg-orange-500 hover:bg-orange-600 text-md py-3 hover:border-gray-500 mt-5">
+        <button type="button" onClick={() => {setShowDashboard(true), setError(null)}} >Return to Dashboard</button>
+      </div>
+    </h1>
   }
   if (dashboard) return <ReceptionistDashboard />;
 
