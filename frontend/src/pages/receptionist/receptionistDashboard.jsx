@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import hospital from '../../assets/hospital.png'
 import RegisterPatient from "./registerPatient";
-import LoginPage from "../LoginPage";
 import { useNavigate } from "react-router-dom";
 
 function ReceptionistDashboard() {
     const [receptionist, setReceptionist] = useState(null);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [showRegister, setShowRegister] = useState(false)
 
@@ -18,7 +17,6 @@ function ReceptionistDashboard() {
             navigate("/login");
              return;
         }
-        setLoading(true);
         fetch(`http://localhost:5000/api/receptionist/${user.id}`)
             .then((res) => {
                 return res.json()
