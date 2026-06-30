@@ -65,6 +65,7 @@ function CreateBill() {
         return;
       }
       setShowDashboard(true);
+      
 
       console.log("Status:", newBill.status);
       console.log("Response:", data);

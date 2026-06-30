@@ -39,7 +39,7 @@ exports.createPatient = async (req, res) => {
             // phone: phone,
             address: address,
             });
-        return res.status(201).json({ message: `successfully created new Patient`, data: newPatient })
+         res.status(201).json({ message: `successfully created new Patient`, data: newPatient })
     } catch (error) {
         console.log(`There is an error inside receptionistController: ${error}`)
         return res.status(500).json({ error: error.message }

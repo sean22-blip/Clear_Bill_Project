@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import hospital from '../../assets/hospital.png'
-import RegisterPatient from "./registerPatient";
 import { useNavigate } from "react-router-dom";
 
 function ReceptionistDashboard() {
     const [receptionist, setReceptionist] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [showRegister, setShowRegister] = useState(false)
 
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     const navigate  = useNavigate();
@@ -17,7 +15,7 @@ function ReceptionistDashboard() {
             navigate("/login");
              return;
         }
-        fetch(`http://localhost:5000/api/receptionist/${user.id}`)
+        fetch(`http://localhost:5000/api/receptionists/${user.id}`)
             .then((res) => {
                 return res.json()
             }
@@ -32,8 +30,7 @@ function ReceptionistDashboard() {
             });
     }, []);
     if (loading) return <h1>Loading...</h1>;
-    if (error) return <h1>Error: {error.message}</h1>;
-    if (showRegister) return <RegisterPatient />;
+    if (error) return <h1>Error: {error}</h1>;
     return (
         <>
             <div className="flex justify-center min-h-screen pb-[10em]">
@@ -43,11 +40,11 @@ function ReceptionistDashboard() {
                         <div className=" flex flex-row justify-around   ">
                             <div className="pt-4">
                                 <div>
-                                    <h1 className="font-bold text-[20px] sm:text-[40px]">Welcome : {receptionist?.name}</h1>
+                                    <h1 className="font-bold text-[20px] sm:text-[40px]">Welcome Receptionist: {receptionist?.name}</h1>
                                 </div>
                                 <div className="mt-5 p-6">
                                     <div className="text-center bg-blue-[900] border-1 border-gray-300 rounded-lg py-5 text-lg font-semibold mt-[1em] hover:text-indigo-700 hover:bg-[#E5E4E2]   ">
-                                        <button onClick={() => setShowRegister(true)}>Click here to create patient </button>
+                                        <button onClick={() => navigate('/receptionist/register')}>Click here to create patient </button>
                                     </div>
 
                                 </div>

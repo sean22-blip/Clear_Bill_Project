@@ -8,6 +8,7 @@ function InputService() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const user = JSON.parse(localStorage.getItem("user") || "{}");
+  console.log(user);
   const navigate = useNavigate();
   useEffect(() => {
     console.log("user id is: " + user.id);
@@ -17,7 +18,7 @@ function InputService() {
     }
     fetch(`http://localhost:5000/api/doctors/${user.id}`)
       .then((res) => {
-        return res.text();
+        return res.json();
       })
       .then(() => {
         setLoading(false);
@@ -44,6 +45,7 @@ function InputService() {
         setError(data.message);
         return;
       }
+      alert("successfully inserted service" + JSON.stringify(data))
       navigate('/doctor/dashboard')
     } catch (error) {
       console.log("There is an error in generateService" + error.message);
@@ -62,7 +64,7 @@ function InputService() {
           <button
             type="button"
             onClick={() => {
-              (navigate('/doctor/dashboard'), setError(null));
+              {setError(null); navigate('/doctor/dashboard')};
             }}
           >
             Return to Dashboard

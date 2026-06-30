@@ -21,7 +21,7 @@ app.use("/api/patient", patientRoutes);
 app.use("/api/bills", billRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/payments", paymentRoutes);
-app.use("/api/receptionist", receptionistRoutes);
+app.use("/api/receptionists", receptionistRoutes);
 app.use("/api/cashiers", cashierRoutes);
 app.use("/api/doctors", doctorRoutes )
 sequelize.authenticate()

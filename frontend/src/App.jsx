@@ -10,6 +10,8 @@ import RegisterPatient from './pages/receptionist/registerPatient.jsx';
 import ReceptionistDashboard from './pages/receptionist/receptionistDashboard.jsx';
 import DoctorDashboard from './pages/doctor/doctorDashboard.jsx';
 import InputService from './pages/doctor/generateService.jsx';
+import CashierDashboard from './pages/cashier/cashierDashboard.jsx';
+import CreateBill from './pages/cashier/createBill.jsx';
 import './App.css'
 import './index.css'
 
@@ -33,12 +35,18 @@ function App() {
         {/* receptionist route*/}
         <Route element={<RootLayout />}>
           <Route path='/receptionist/dashboard' element={<ReceptionistDashboard />}></Route>
-          <Route path='/receptionist/dashboard/:id/create' element={<RegisterPatient />}></Route>
+          <Route path='/receptionist/register' element={<RegisterPatient />}></Route>
         </Route>
         {/* Doctor route*/}
         <Route element={<RootLayout />}>
           <Route path='/doctor/dashboard' element={<DoctorDashboard />}></Route>
-          <Route path='/doctor/dashboard/:id/input' element={<InputService />}></Route>
+          <Route path='/doctor/input' element={<InputService />}></Route>
+        </Route>
+
+         {/* cashier route*/}
+        <Route element={<RootLayout />}>
+          <Route path='/cashier/dashboard' element={<CashierDashboard />}></Route>
+          <Route path='/cashier/create' element={<CreateBill/>}></Route>
         </Route>
 
       </Routes>

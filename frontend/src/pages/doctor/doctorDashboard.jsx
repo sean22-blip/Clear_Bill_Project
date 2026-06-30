@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import hospital from "../../assets/hospital.png";
 // import LoginPage from "../LoginPage";
 function DoctorDashboard() {
-  const [doctor, setDoctor] = useState(null);
+  const [userDoctor, setDoctor] = useState(null);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -15,9 +15,9 @@ function DoctorDashboard() {
       navigate("/login");
       return;
     }
-    fetch(`http://localhost:5000/api/doctors/${user.id}/`)
+    fetch(`http://localhost:5000/api/doctors/${user.id}`)
       .then((res) => {
-        return res.text();
+        return res.json();
       })
       .then((data) => {
         setDoctor(data);
@@ -46,14 +46,14 @@ function DoctorDashboard() {
               <div className="pt-4">
                 <div>
                   <h1 className="font-bold text-[20px] sm:text-[40px]">
-                    Welcome : {doctor?.name}
+                    Welcome Doctor: {userDoctor?.name}
                   </h1>
                 </div>
                 <div className="mt-5 p-6">
                   <div className="text-center bg-blue-[900] border border-gray-300 rounded-lg py-5 text-lg font-semibold mt-[1em] hover:text-indigo-700 hover:bg-[#E5E4E2]   ">
                     <button
                       onClick={() =>
-                        navigate(`/doctor/dashboard/${user.id}/`)
+                        navigate(`/doctor/input`)
                       }
                     >
                       Click here to input service
