@@ -4,15 +4,13 @@ import hospital from "../../assets/hospital.png";
 // import LoginPage from "../LoginPage";
 function DoctorDashboard() {
   const [userDoctor, setDoctor] = useState(null);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("user id is: " + user.id);
     if (!user.id) {
-      navigate("/login");
       return;
     }
     fetch(`http://localhost:5000/api/doctors/${user.id}`)

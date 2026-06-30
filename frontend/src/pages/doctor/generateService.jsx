@@ -4,20 +4,21 @@ function InputService() {
   const [service_name, setServiceName] = useState("");
   const [description, setDescription] = useState("");
   const [cost, setCost] = useState("");
+  const [patientId, setPatientId] = useState("");
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   console.log(user);
-  const navigate = useNavigate();
   useEffect(() => {
     console.log("user id is: " + user.id);
     if (!user.id) {
-      navigate("/login");
       return;
     }
     fetch(`http://localhost:5000/api/doctors/${user.id}`)
       .then((res) => {
+        if (!res.ok) throw new Error("Doctor not found");
         return res.json();
       })
       .then(() => {
@@ -32,21 +33,28 @@ function InputService() {
 
   async function handleInputService() {
     try {
-      const newService = await fetch(
+      const result = await fetch(
         `http://localhost:5000/api/doctors/${user.id}/input`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ service_name, description, cost }),
+          body: JSON.stringify({
+            patient_id: parseInt(patientId),
+            service_name,
+            description,
+            cost: parseFloat(cost),
+          }),
         },
       );
-      const data = await newService.json();
-      if (!newService.ok) {
-        setError(data.message);
+      const data = await result.json();
+      if (!result.ok) {
+        console.log("Response" + data);
+        setError(data.error);
         return;
       }
-      alert("successfully inserted service" + JSON.stringify(data))
-      navigate('/doctor/dashboard')
+
+      alert("successfully inserted service" + JSON.stringify(data));
+      navigate("/doctor/dashboard");
     } catch (error) {
       console.log("There is an error in generateService" + error.message);
       setError(error.message);
@@ -64,7 +72,10 @@ function InputService() {
           <button
             type="button"
             onClick={() => {
-              {setError(null); navigate('/doctor/dashboard')};
+              {
+                setError(null);
+                navigate("/doctor/dashboard");
+              }
             }}
           >
             Return to Dashboard
@@ -83,12 +94,18 @@ function InputService() {
         <div className="mt-[4.5em] ml-[25%] grid justify-center py-10 w-1/3 border border-[#00668A] rounded-lg">
           <div className="flex flex-rows gap-[1em]  ">
             <div className="grid pr-[1em]">
+              <label>Patient ID: </label>
               <label>Service_Name: </label>
               <label>Description: </label>
               <label>Cost: </label>
             </div>
 
             <div className="grid gap-4">
+              <input
+                className=" border border-[#00668A] rounded-sm px-2 "
+                type="text"
+                onChange={(e) => setPatientId(e.target.value)}
+              ></input>
               <input
                 className=" border border-[#00668A] rounded-sm px-2 "
                 type="text"
@@ -115,7 +132,7 @@ function InputService() {
             </button>
           </div>
           <div className="border border-gray-700 rounded-md m-4 px-2 text-white bg-orange-500 hover:bg-orange-600 text-md py-1 hover:border-gray-500">
-            <button type="button" onClick={() => navigate('/doctor/dashboard')}>
+            <button type="button" onClick={() => navigate("/doctor/dashboard")}>
               Return to Dashboard
             </button>
           </div>

@@ -25,7 +25,6 @@ app.use("/api/payments", paymentRoutes);
 app.use("/api/receptionists", receptionistRoutes);
 app.use("/api/cashiers", cashierRoutes);
 app.use("/api/admin", adminRoutes);
-
 app.use("/api/doctors", doctorRoutes )
 sequelize.authenticate()
 .then(() => {

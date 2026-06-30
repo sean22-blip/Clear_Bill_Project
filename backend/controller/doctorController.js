@@ -4,6 +4,7 @@ exports.getDoctor = async (req, res) => {
     const doctor = await User.findOne({
       where: {
         user_id: req.params.id,
+        role: "Doctor"
       },
     });
     if (!doctor) {
@@ -16,21 +17,40 @@ exports.getDoctor = async (req, res) => {
   }
 };
 exports.inputService = async (req, res) => {
-  const { service_name, description, cost } = req.body;
-  if ( !service_name || !description || !cost) {
+  const doctorId = req.params.id;
+  const {service_name, description, cost, patientId} = req.body
+  if (!patientId|| !service_name || !description || !cost) {
     return res.status(400).json("All field must be provided!");
   }
   try {
-    const newService = await Service.create({
+    const findPatient = await Patient.findOne({where: {patient_id: patientId}})
+if(!findPatient){
+  return res.status(404).json({error: `cannot find the patient with this id!`})
+}
+  
+
+    const doctor = await User.findOne({ 
+        where: { 
+            user_id: doctorId, 
+            role: "Doctor" 
+        } 
+    });
+    if (!doctor) {
+      return res.status(403).json({ error: "Sorry! only Doctor can accessed!!" });
+    }
+    const createdService = await Service.create({
       service_name: service_name,
       description: description,
       cost: cost,
+      patient_id: patientId,
+      user_id: doctorId
     });
 
-    console.log(newService);
-    res.status(201).json(newService);
+    console.log(createdService);
+    res.status(201).json(createdService);
   } catch (error) {
     console.log({ error: error + `There is an error inside doctorController` });
     return res.status(500).json({ error: error.message });
   }
-};
+
+}

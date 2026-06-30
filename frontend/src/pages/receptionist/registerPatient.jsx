@@ -17,7 +17,6 @@ function RegisterPatient() {
   useEffect(() => {
     console.log("user id is :", user.id);
     if (!user.id) {
-      navigate("/login");
       return;
     }
     fetch(`http://localhost:5000/api/receptionists/${user.id}`)

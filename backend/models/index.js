@@ -15,6 +15,13 @@ User.hasMany(Service, {
     foreignKey: "user_id"
 });
 
+Patient.hasMany(Service, {
+    foreignKey: "patient_id"
+})
+Service.belongsTo(Patient, {
+    foreignKey: "patient_id"
+})
+
 Patient.belongsTo(User, {
     foreignKey: "user_id"
 });
