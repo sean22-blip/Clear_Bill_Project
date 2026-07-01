@@ -19,18 +19,30 @@ exports.getDoctor = async (req, res) => {
 };
 exports.findService = async (req, res) => {
   const doctorId = req.params.id;
-  const { patientId, service_name, description, cost } = req.body;
-  if (!patientId || !service_name || !description || !cost) {
+  const { patientId, serviceId } = req.body;
+  if (!patientId || !serviceId) {
     return res.status(400).json("All field must be provided!");
   }
   try {
     const findPatient = await Patient.findOne({
-      where: { patient_id: patientId },
+      where: {
+        patient_id: patientId,
+        service_id: serviceId,
+        doctor_id: doctorId,
+      },
     });
     if (!findPatient) {
       return res
         .status(404)
         .json({ error: `cannot find the patient with this id!` });
+    }
+    const findService = await Service.findOne({
+      where: { patient_id: patientId },
+      service_id: serviceId,
+      doctor_id: doctorId,
+    });
+    if (!findService) {
+      return res.status(404).json({ error: `service can not be found` });
     }
     const doctor = await User.findOne({
       where: {
@@ -43,10 +55,6 @@ exports.findService = async (req, res) => {
         .status(403)
         .json({ error: "Sorry! only Doctor can accessed!!" });
     }
-    const foundService = await Service.findOne({
-      where: { patient_id: patientId },
-      doctor_id: doctorId,
-    });
 
     console.log(findService);
     res.status(201).json(findService);
