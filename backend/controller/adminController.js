@@ -96,3 +96,45 @@ exports.createUser = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.getRevenueReport = async (req, res) =>{
+    try {
+        const {startDate, endDate} =req.query;
+        const {Op} = require("sequelize");
+
+        const payments = await Payment.findAll({
+            where: {
+                payment_date: {
+                    [Op.between]: [startDate, endDate]
+                }
+            },
+            include: [{
+                model: Bill,
+                include: [{
+                    model: Patient,
+                    include: [{model: User, attributes: ["name"]}]
+                }],
+            }],
+            order: [["payment_date", "ASC"]]
+        });
+
+        const totalRevenue = payments.reduce((sum, p) => sum + Number(p.amount), 0);
+        const totalPayments = payments.length;
+
+        const revenueByDate = {};
+            payments.forEach(p => {
+                const date = p.payment_date.toISOString().split("T")[0];
+                    revenueByDate[date] = (revenueByDate[date] || 0) + Number(p.amount);
+            });
+
+            const chartData  = Object.entries(revenueByDate).map(([date, amount]) => ({
+                date,
+                amount
+            }));
+
+            res.json({ totalRevenue, totalPayments, chartData, payments});
+        } catch (error  ) {
+        console.log(error);
+        res.status(500).json({message: error.message});
+    }
+};

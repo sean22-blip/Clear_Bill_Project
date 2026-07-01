@@ -14,6 +14,8 @@ import DoctorDashboard from './pages/doctor/doctorDashboard.jsx';
 import InputService from './pages/doctor/generateService.jsx';
 import CashierDashboard from './pages/cashier/cashierDashboard.jsx';
 import CreateBill from './pages/cashier/createBill.jsx';
+import AdminReports from './pages/admin/AdminReports';
+
 import './App.css'
 import './index.css'
 
@@ -54,6 +56,7 @@ function App() {
         {/* admin route */}
         <Route path='/admin/dashboard' element={<AdminDashboard />} />
         <Route path='/admin/users' element={<AdminUsers />} />
+        <Route path='/admin/reports' element={<AdminReports />} />
       </Routes>
     </>
   )
