@@ -7,7 +7,8 @@ const {
     deleteUser,
     getServices,
     createService,
-    deleteService
+    deleteService,
+    getRevenueReport
 } = require("../controller/adminController");
 
 router.get("/dashboard", getDashboard);
@@ -17,5 +18,6 @@ router.delete("/users/:id", deleteUser);
 router.get("/services", getServices);
 router.post("/services", createService);
 router.delete("/services/:id", deleteService);
+router.get("/reports", getRevenueReport);
 
 module.exports = router;
