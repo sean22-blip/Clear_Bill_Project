@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function InputService() {
   const [patientId, setPatientId] = useState("");
-  const [service_id, setServiceId] = useState("");
+  const [serviceId, setServiceId] = useState("");
   const [serviceInfo, setServiceInfo] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -30,13 +30,13 @@ function InputService() {
   }, []);
 
   useEffect(() => {
-  if (!service_id) {
+  if (!serviceId) {
     return;
   }
 
   async function showService() {
     try {
-      const res = await fetch(`http://localhost:5000/api/services/${service_id}`);
+      const res = await fetch(`http://localhost:5000/api/services/${serviceId}`);
       if (!res.ok) {
         setServiceInfo(null);
         return;
@@ -50,7 +50,7 @@ function InputService() {
   }
 
   showService();
-}, [service_id]);
+}, [serviceId]);
   async function handleInputService() {
     try {
       const result = await fetch(
@@ -60,7 +60,7 @@ function InputService() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             patientId: parseInt(patientId),
-            service_id: parseInt(service_id),
+            serviceId: parseInt(serviceId),
           }),
         },
       );
@@ -128,8 +128,8 @@ function InputService() {
                 onChange={(e) => setServiceId(e.target.value)}
               ></input>
               <div className="text-sm ">
-                Description of Serivce_ID number {service_id}:{" "}
-                {serviceInfo ? serviceInfo.service_name : ""}
+                Description of Serivce_ID number {serviceId}:{" "}
+                {serviceInfo ? serviceInfo.service_name : "Service with this ID does not exist!!"}
               </div>
             </div>
           </div>
