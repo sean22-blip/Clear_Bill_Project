@@ -1,5 +1,5 @@
 const { Service } = require("../models");
-exports.getDoctor = async (req, res) => {
+exports.getService = async (req, res) => {
 
     try {
 

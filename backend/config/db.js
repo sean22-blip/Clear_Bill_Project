@@ -10,7 +10,7 @@ const sequelize = new Sequelize(
     dialect: "mysql",
     },
 );
-// sequelize.sync({alter: true})
+sequelize.sync({alter: true})
 console.log("DB_NAME =", process.env.DB_NAME);
 console.log("DB_USER =", process.env.DB_USER);
 module.exports = sequelize;

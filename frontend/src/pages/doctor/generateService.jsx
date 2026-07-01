@@ -39,9 +39,9 @@ function InputService() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            patient_id: parseInt(patientId),
-            service_name,
-            description,
+            patientId: parseInt(patientId),
+            service_name: service_name,
+            description: description,
             cost: parseFloat(cost),
           }),
         },

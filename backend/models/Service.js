@@ -29,7 +29,7 @@ const Service = sequelize.define(
         key: "patient_id", 
       },
     },
-    user_id: {
+    doctor_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references:{

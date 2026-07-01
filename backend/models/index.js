@@ -10,21 +10,11 @@ User.hasOne(Patient, {
     foreignKey: "user_id"
 });
 
-//Doctor can input many service
-User.hasMany(Service, {
-    foreignKey: "user_id"
-});
+Patient.hasMany(Service, { foreignKey: "patient_id", as: "services" });
+Service.belongsTo(Patient, { foreignKey: "patient_id", as: "patient" });
 
-Patient.hasMany(Service, {
-    foreignKey: "patient_id"
-})
-Service.belongsTo(Patient, {
-    foreignKey: "patient_id"
-})
-
-Patient.belongsTo(User, {
-    foreignKey: "user_id"
-});
+User.hasMany(Service, { foreignKey: "doctor_id", as: "servicesAsDoctor" });
+Service.belongsTo(User, { foreignKey: "doctor_id", as: "doctor" })
 
 // Patient ↔ Bills
 Patient.hasMany(Bill, {

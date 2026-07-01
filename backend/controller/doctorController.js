@@ -1,4 +1,4 @@
-const { Payment, Bill, Patient, User, Service } = require("../models");
+const { Patient, User, Service } = require("../models");
 exports.getDoctor = async (req, res) => {
   try {
     const doctor = await User.findOne({
@@ -18,7 +18,7 @@ exports.getDoctor = async (req, res) => {
 };
 exports.inputService = async (req, res) => {
   const doctorId = req.params.id;
-  const {service_name, description, cost, patientId} = req.body
+  const { patientId,service_name, description, cost} = req.body
   if (!patientId|| !service_name || !description || !cost) {
     return res.status(400).json("All field must be provided!");
   }
@@ -27,8 +27,6 @@ exports.inputService = async (req, res) => {
 if(!findPatient){
   return res.status(404).json({error: `cannot find the patient with this id!`})
 }
-  
-
     const doctor = await User.findOne({ 
         where: { 
             user_id: doctorId, 
@@ -43,7 +41,7 @@ if(!findPatient){
       description: description,
       cost: cost,
       patient_id: patientId,
-      user_id: doctorId
+      doctor_id: doctorId
     });
 
     console.log(createdService);
