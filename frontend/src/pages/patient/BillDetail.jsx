@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import al from '../../assets/al.png';
+import { authFetch } from "../../utils/authFetch";
 
 function BillDetail() {
   const { id } = useParams();
@@ -8,7 +9,7 @@ function BillDetail() {
   const [bill, setBill] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/bills/${id}`)
+    authFetch(`http://localhost:5000/api/bills/${id}`)
       .then(res => res.json())
       .then(data => {
         console.log("Bill Detail:", data);

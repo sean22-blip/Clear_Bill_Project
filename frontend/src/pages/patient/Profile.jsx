@@ -6,6 +6,8 @@ import home from '../../assets/hom.png';
 import gen from '../../assets/gender.png';
 import calendar from '../../assets/calendar.png'
 import ph from '../../assets/ph.png';
+import { authFetch } from "../../utils/authFetch";
+
 function Profile() {
   const [profile, setProfile] = useState(null);
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ function Profile() {
 
   useEffect(() => {
     if (!user.id) return;
-    fetch(`http://localhost:5000/api/patient/profile/${user.id}`)
+    authFetch(`http://localhost:5000/api/patient/profile/${user.id}`)
       .then(res => res.json())
       .then(data => {
         console.log("Profile:", data);

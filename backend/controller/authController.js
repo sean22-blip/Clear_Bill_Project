@@ -1,4 +1,5 @@
 const { User } = require("../models");
+const jwt = require('jsonwebtoken')
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -16,9 +17,15 @@ exports.login = async (req, res) => {
         if (user.password !== password) {
             return res.status(401).json({ message: "Wrong password" });
         }
+        const token = jwt.sign(
+            {id: user.user_id, role: user.role},
+            process.env.JWT_SECRET,
+            {expiresIn: "1d"}
+        )
 
         return res.json({
             message: "Login Success",
+            token,
             user: {
                 id: user.user_id,
                 name: user.name,

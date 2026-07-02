@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import al from '../../assets/al.png';
 import calendar from '../../assets/calendar.png';
+import { authFetch } from "../../utils/authFetch";
 
 function PaymentHistory() {
     const [payments, setPayments] = useState([]);
@@ -11,7 +12,7 @@ function PaymentHistory() {
         const user = JSON.parse(localStorage.getItem("user") || "{}");
         if (!user.id) return;
 
-        fetch(`http://localhost:5000/api/payments/patient/${user.id}`)
+        authFetch(`http://localhost:5000/api/payments/patient/${user.id}`)
             .then(res => res.json())
             .then(data => {
                 console.log("Payments:", data);

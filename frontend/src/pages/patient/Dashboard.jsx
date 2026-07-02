@@ -3,12 +3,13 @@ import hospital from '../../assets/hospital.png'
 import rec from '../../assets/rec.png'
 import wallet from '../../assets/wallet.png'
 import verify from '../../assets/verify.png'
+import { authFetch } from "../../utils/authFetch";
 function Dashboard() {
     const [patient, setPatient] = useState();
     const user = JSON.parse(localStorage.getItem("user") || "{}");
     useEffect(() => {
         if (!user.id) return;
-        fetch(`http://localhost:5000/api/patient/dashboard/${user.id}`)
+        authFetch(`http://localhost:5000/api/patient/dashboard/${user.id}`)
             .then(res => res.json())
             .then(data => {
                 console.log("API DATA:", data);

@@ -27,7 +27,6 @@ console.log("Status:", response.status);
             if (response.ok) {
 
     localStorage.setItem('user', JSON.stringify(data.user));
-    localStorage.setItem('token', data.token);
 
     alert('Login Successful!');
 
