@@ -81,8 +81,7 @@ DB_USER=root
 DB_PASS=your_mysql_password
 DB_HOST=127.0.0.1
 DB_PORT=3306
-ACCESS_TOKEN_SECRET=replace_with_a_long_random_string
-```
+
 
 **`frontend/.env`:**
 ```env
