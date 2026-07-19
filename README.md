@@ -12,7 +12,7 @@ A full-stack hospital billing management system — patients get registered, doc
 
 ## 👥 Roles
 
-| Role | What they do |
+| Role | What We do |
 |---|---|
 | **Admin** | Creates user accounts, pulls revenue reports |
 | **Receptionist** | Registers new patients |
